@@ -54,7 +54,16 @@ const MemberIdPage = async ({
   const otherMember = memberOne.profileId === profile.id ? memberTwo : memberOne;
 
   return ( 
-    <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
+    <div className="bg-white dark:bg-[#313338] flex flex-col h-full w-full">
+    <video
+        autoPlay
+        loop
+        muted
+        className="absolute z-0"
+    style={{ width: '79.4%', height: '100%', objectFit: 'cover' }}
+      >
+        <source src="/racing_bike_-_7251 (540p).mp4" type="video/mp4" />
+      </video>
       <ChatHeader
         imageUrl={otherMember.profile.imageUrl}
         name={otherMember.profile.name}
