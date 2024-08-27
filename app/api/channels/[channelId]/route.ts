@@ -43,7 +43,7 @@ export async function DELETE(
           delete: {
             id: params.channelId,
             name: {
-              not: "general",
+              not: "Help Desk",
             }
           }
         }
@@ -80,8 +80,8 @@ export async function PATCH(
       return new NextResponse("Channel ID missing", { status: 400 });
     }
 
-    if (name === "general") {
-      return new NextResponse("Name cannot be 'general'", { status: 400 });
+    if (name === "Help Desk") {
+      return new NextResponse("Name cannot be 'Help Desk'", { status: 400 });
     }
 
     const server = await db.server.update({
@@ -102,7 +102,7 @@ export async function PATCH(
             where: {
               id: params.channelId,
               NOT: {
-                name: "general",
+                name: "Help Desk",
               },
             },
             data: {
