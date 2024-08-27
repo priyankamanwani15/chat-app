@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { ServerWithMembersWithProfiles } from "@/types";
 import { MemberRole } from "@prisma/client";
 import {
@@ -10,6 +11,7 @@ import {
   Trash,
   UserPlus,
   Users,
+  Bell, // Import the Bell icon
 } from "lucide-react";
 
 import {
@@ -20,6 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useModal } from "@/hooks/use-modal-store";
+import { useChatSocket } from "@/hooks/use-chat-socket"; // Import the hook
 
 interface ServerHeaderProps {
   server: ServerWithMembersWithProfiles;
@@ -28,10 +31,28 @@ interface ServerHeaderProps {
 
 export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
   const { onOpen } = useModal();
+  const [notificationCount, setNotificationCount] = useState(0);
 
-  // if (!server || !onOpen) {
-  //   return null;
-  // }
+  // Socket events
+  useChatSocket({
+    addKey: "newMessage", // Replace with your actual event key
+    updateKey: "", // Assuming you don't need updateKey here
+    queryKey: "messages", // Replace with your actual query key
+  });
+
+  // Example of handling new message events
+  useEffect(() => {
+    const handleNewMessage = () => {
+      setNotificationCount((prevCount) => prevCount + 1);
+    };
+
+    // Subscribe to socket event here and call handleNewMessage
+    // Ensure to clean up the subscription
+
+    return () => {
+      // Unsubscribe from socket events
+    };
+  }, []);
 
   const isAdmin = role === MemberRole.ADMIN;
   const isModerator = isAdmin || role === MemberRole.MODERATOR;
@@ -41,6 +62,13 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
       <DropdownMenuTrigger className="focus:outline-none" asChild>
         <button className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition">
           {server.name}
+          <Bell className="h-5 w-5 ml-2 relative">
+            {notificationCount > 0 && (
+              <span className="absolute top-0 right-0 block h-2.5 w-2.5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                {notificationCount}
+              </span>
+            )}
+          </Bell>
           <ChevronDown className="h-5 w-5 ml-auto" />
         </button>
       </DropdownMenuTrigger>
