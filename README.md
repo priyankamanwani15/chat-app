@@ -1,12 +1,12 @@
 # 💬 Channelize: A Real-Time Communication Platform
 
-### Created by [Rishabh Sharma]
+### Created by [Priyanka Manwani]
 
 Channelize is a full-stack, real-time team communication platform inspired by Discord, designed to streamline collaboration for any organization. It offers secure 1:1 and group messaging, voice/video calls, dynamic server and channel management, file sharing, and role-based permissions.
 
 Built with a modern tech stack, Channelize provides a scalable, all-in-one internal communication solution that feels both powerful and intuitive.
 
-*[🚀 View the Live Demo Here!](https://chat-application-6g1x.onrender.com)*
+*[🚀 View the Live Demo Here!](https://chat-application-6g1x.onrender.com/)*
 
 ---
 
@@ -103,3 +103,13 @@ LIVEKIT_API_URL=
 LIVEKIT_API_KEY=
 LIVEKIT_API_SECRET=
 NEXT_PUBLIC_LIVEKIT_URL=
+```
+
+### 5. Push Database Schema
+Run the Prisma command to sync your schema with the database: npx prisma db push.
+
+### 6. Run the Development Server
+Start the development server with npm run dev.
+
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the result! 🎉
+
